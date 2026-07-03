@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Lista alunos at jinja2</h1>
+    <!--Codigo jinja 2 para ter multiplas coiass sem ter que escrever tudo na link-->
+    {%for alunos in alunos%}
+    <p>
+        Nome: {{alunos.nome}} <br>
+        Email: {{alunos.email}} <br>
+        Idade: {{alunos.idade}}<br>
+        Nota: {{alunos.nota}} <br>
+        
+        {% if alunos.nota < 7 %}
+            <p>Reprovado</p>
+            {%else%}
+                <p>Aprovado</p>
+        {%endif%}
+
+    </p>
+    {%endfor%}
+</body>
+</html>
