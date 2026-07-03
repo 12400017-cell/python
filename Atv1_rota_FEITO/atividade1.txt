@@ -1,0 +1,8 @@
+
+Crie uma aplicação Flask que contenha uma rota específica responsável por explicar o conceito de decorator em Python.
+Requisitos
+Crie uma rota acessível por meio do caminho: /decorator
+Ao acessar essa rota no navegador, deve ser exibido um texto explicando:
+O que é um decorator em Python
+Para que ele serve
+Como ele é utilizado no Flask (exemplo: @app.route)

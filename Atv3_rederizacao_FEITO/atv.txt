@@ -1,0 +1,5 @@
+Renderização
+ Crie uma pasta dentro do seu projeto com o nome de "templates" e crie um html com o currículo dentro
+utilize a função render_template() para importar o seu html.
+
+Logo depois crie uma variável dinâmica que retorne o nome com o endereçamento /cotemig
