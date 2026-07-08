@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout</title>
+    <!--Uma das formas de conectar o html jinja2 com o css-->
+    <!--href="/static/css/style.css"-->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+    <header class = "CsideBar">
+        <h1>Side Bar</h1>
+        <div class = "botoes">
+            <h2>Btn1</h2>
+            <h2>Btn1</h2>
+            <h2>Btn1</h2>
+            <h2>Btn1</h2>
+            <h2>Btn1</h2>
+        </div>
+    </header>
+</body>
+</html>
