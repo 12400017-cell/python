@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layout</title>
     <!--Uma das formas de conectar o html jinja2 com o css-->
     <!--href="/static/css/style.css"-->
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <title>
+        <!--essas caixas tornam essses elemetos uiverseis para toda página-->
+        <!--assim, posso os sobreescrever nas outras páginas-->
+        {% block title %}
+        <!--Nas outras páginas, devo colocar o titulo dentro-->
+        {% endblock%}
+        Flask menu <!--Titulo-->
+    </title>
 </head>
 <body>
-    <header class = "CsideBar">
-        <h1>Side Bar</h1>
-        <div class = "botoes">
-            <h2>Btn1</h2>
-            <h2>Btn1</h2>
-            <h2>Btn1</h2>
-            <h2>Btn1</h2>
-            <h2>Btn1</h2>
-        </div>
-    </header>
+    <!--Estrutura da barra lateral(css)-->
+    <!--Nav serve como uma div-->
+    <nav>
+        <!--linkando com as funções do app.py(elas que abrem as páginas)-->
+        <a href="{{url_for('homeP')}}"></a>
+    </nav>
 </body>
 </html>
