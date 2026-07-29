@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <!--Infos sobre quem sou eu-->
-    <p>Leonardo Silva</p>
-    <p>Idade: 18 anos</p>
-    <p>Empregado?: Desempregado</p>
-</body>
-</html>
+<!--Para poder sobreescrever o layout devo conectar o home com o layout.html-->
+<!-- Com o layout conctado posso sobreescrever suas caracteristicas(sem mudar o css) -->
+{%extends 'layout.html'%}
+
+<!--Aqui eu sobreescrevo o titulo do layout.html-->
+{%block title%}
+    Home page
+{% endblock %}
+
+{%block header%}
+    Sobre Mim
+{%endblock%}

@@ -18,7 +18,25 @@
     <!--Nav serve como uma div-->
     <nav>
         <!--linkando com as funções do app.py(elas que abrem as páginas)-->
-        <a href="{{url_for('homeP')}}"></a>
+        <a href="{{url_for('homeP')}}">
+            Sobre Mim
+        </a>
+        <br>
+
+        <a href="{{url_for('pag1')}}">
+            Projetos para o futuro
+        </a>
+
+        <br>
+        <a href="{{url_for('pag2')}}">
+            Hobies
+        </a>
     </nav>
+    <!--Infos da página x-->
+    <section>
+        <h1>{%block header%}{%endblock%}</h1>
+        <p>{%block section%}{%endblock%}</p>
+    </section>
+
 </body>
 </html>
