@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Nova viagem — ClimaTrip{% endblock %}
+
+{% block content %}
+<h1>Nova viagem</h1>
+<p class="subtitulo">Escolha o viajante e o destino — o clima vem da Open-Meteo</p>
+
+<section class="painel" style="max-width: 560px;">
+    {% if viajantes %}
+    <form method="post" class="form-grid">
+        <div class="campo campo-full">
+            <label for="viajante_id">Viajante *</label>
+            <select id="viajante_id" name="viajante_id" required>
+                <option value="">Selecione...</option>
+                {% for pessoa in viajantes %}
+                <option value="{{ pessoa.id }}">{{ pessoa.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="campo campo-full">
+            <label for="destino">Destino *</label>
+            <input type="text" id="destino" name="destino" required
+                   placeholder="Londres, Paris, Tóquio, Rio de Janeiro...">
+        </div>
+
+        <div class="campo campo-full">
+            <button type="submit" class="btn btn-primario">Consultar clima e salvar</button>
+            <a class="btn" href="{{ url_for('viagens.home') }}" style="margin-left: 0.4rem;">Cancelar</a>
+        </div>
+    </form>
+    {% else %}
+    <p class="vazio">
+        Cadastre um viajante primeiro.
+        <a class="btn btn-primario" href="{{ url_for('viagens.viajantes') }}" style="margin-top: 1rem;">
+            Ir para viajantes
+        </a>
+    </p>
+    {% endif %}
+</section>
+{% endblock %}

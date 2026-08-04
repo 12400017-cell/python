@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ClimaTrip — Viagens & Clima{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="nav">
+        <a class="nav-brand" href="{{ url_for('viagens.home') }}">Clima<span>Trip</span></a>
+        <a href="{{ url_for('viagens.viajantes') }}">Viajantes</a>
+        <a href="{{ url_for('viagens.nova_viagem') }}">Nova viagem</a>
+        <a href="{{ url_for('viagens.lista_viagens') }}">Histórico</a>
+        <a href="/api/viagens" target="_blank">API JSON</a>
+    </nav>
+
+    <main class="container">
+        <div class="aviso-api">
+            API de viagens + <strong>Open-Meteo</strong> —
+            cadastre o viajante, escolha o destino e grave o clima.
+            Teste no Thunder Client: <a href="/api/clima/Londres" target="_blank">GET /api/clima/Londres</a>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for categoria, mensagem in messages %}
+                    <div class="flash flash-{{ categoria }}">{{ mensagem }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

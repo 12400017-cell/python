@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}{{ viajante.nome }} — ClimaTrip{% endblock %}
+
+{% block content %}
+<h1>{{ viajante.nome }}</h1>
+<p class="subtitulo">Viagens planejadas com consulta de clima</p>
+
+<section class="painel">
+    {% if viagens %}
+    <ul class="lista">
+        {% for v in viagens %}
+        <li>
+            <div>
+                <a href="{{ url_for('viagens.detalhe_viagem', viagem_id=v.id) }}">
+                    {{ v.destino }}{% if v.pais %}, {{ v.pais }}{% endif %}
+                </a>
+                <div style="color: var(--texto-suave); font-size: 0.85rem;">
+                    {{ v.resumo() }}
+                </div>
+            </div>
+            <span class="temp">{{ v.temperatura_c }}°C</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="vazio">Este viajante ainda não tem destinos.</p>
+    {% endif %}
+</section>
+
+<p style="margin-top: 1.25rem;">
+    <a class="btn btn-primario" href="{{ url_for('viagens.nova_viagem') }}">Nova viagem</a>
+</p>
+{% endblock %}

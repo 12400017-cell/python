@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="hero">
+    <h1 class="hero-brand">Clima<em>Trip</em></h1>
+    <p>
+        Cadastre o viajante, escolha o destino e veja a temperatura do dia —
+        persistido no SQLite e pronto para testar no Thunder Client.
+    </p>
+    <div class="hero-actions">
+        <a class="btn btn-primario" href="{{ url_for('viagens.nova_viagem') }}">Planejar viagem</a>
+        <a class="btn" href="{{ url_for('viagens.viajantes') }}">Cadastrar viajante</a>
+    </div>
+</section>
+
+<div class="grid-2" style="margin-top: 1.5rem;">
+    <section class="painel">
+        <h2 class="secao-titulo">Últimas viagens</h2>
+        {% if viagens %}
+            <ul class="lista">
+                {% for v in viagens %}
+                <li>
+                    <div>
+                        <a href="{{ url_for('viagens.detalhe_viagem', viagem_id=v.id) }}">
+                            {{ v.viajante.nome }} → {{ v.destino }}
+                        </a>
+                        <div style="color: var(--texto-suave); font-size: 0.85rem;">
+                            {{ v.data_consulta }} · {{ v.descricao_clima }}
+                        </div>
+                    </div>
+                    <span class="temp">{{ v.temperatura_c }}°C</span>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="vazio">Nenhuma viagem ainda. Crie a primeira!</p>
+        {% endif %}
+    </section>
+
+    <section class="painel">
+        <h2 class="secao-titulo">Viajantes</h2>
+        {% if viajantes %}
+            <ul class="lista">
+                {% for pessoa in viajantes %}
+                <li>
+                    <a href="{{ url_for('viagens.detalhe_viajante', viajante_id=pessoa.id) }}">
+                        {{ pessoa.nome }}
+                    </a>
+                    <span style="color: var(--texto-suave);">{{ pessoa.viagens.count() }} viagem(ns)</span>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="vazio">Cadastre um viajante para começar.</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

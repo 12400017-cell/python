@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}Viajantes — ClimaTrip{% endblock %}
+
+{% block content %}
+<h1>Viajantes</h1>
+<p class="subtitulo">Cadastre o nome de quem vai viajar</p>
+
+<div class="grid-2">
+    <section class="painel">
+        <form method="post" class="form-grid">
+            <div class="campo campo-full">
+                <label for="nome">Nome completo *</label>
+                <input type="text" id="nome" name="nome" required placeholder="Peter Parker Watson">
+            </div>
+            <div class="campo campo-full">
+                <button type="submit" class="btn btn-primario">Cadastrar</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="painel">
+        <h2 class="secao-titulo">Cadastrados</h2>
+        {% if viajantes %}
+            <ul class="lista">
+                {% for pessoa in viajantes %}
+                <li>
+                    <a href="{{ url_for('viagens.detalhe_viajante', viajante_id=pessoa.id) }}">
+                        {{ pessoa.nome }}
+                    </a>
+                    <span style="color: var(--texto-suave);">#{{ pessoa.id }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="vazio">Nenhum viajante cadastrado.</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

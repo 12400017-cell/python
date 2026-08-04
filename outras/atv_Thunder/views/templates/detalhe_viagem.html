@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %}{{ viagem.destino }} — ClimaTrip{% endblock %}
+
+{% block content %}
+<section class="painel clima-destaque">
+    <p class="clima-meta">{{ viagem.viajante.nome }}</p>
+    <h1 class="clima-destino">{{ viagem.destino }}{% if viagem.pais %}, {{ viagem.pais }}{% endif %}</h1>
+    <p class="clima-temp">{{ viagem.temperatura_c }}°</p>
+    <p class="clima-meta">{{ viagem.descricao_clima }} · {{ viagem.data_consulta }}</p>
+
+    <div class="metricas">
+        <div class="metrica">
+            <strong>{{ viagem.vento_kmh }} km/h</strong>
+            <span>Vento</span>
+        </div>
+        <div class="metrica">
+            <strong>{% if viagem.umidade is not none %}{{ viagem.umidade }}%{% else %}—{% endif %}</strong>
+            <span>Umidade</span>
+        </div>
+        <div class="metrica">
+            <strong>{{ "%.2f"|format(viagem.latitude) }}, {{ "%.2f"|format(viagem.longitude) }}</strong>
+            <span>Coordenadas</span>
+        </div>
+    </div>
+
+    <p class="resumo">{{ viagem.resumo() }}</p>
+</section>
+
+{% if hourly %}
+<section class="painel" style="margin-top: 1.25rem;">
+    <h2 class="secao-titulo">Previsão horária (hoje)</h2>
+    <div class="hourly">
+        {% for h in hourly %}
+        <div class="hora-card">
+            <div class="h">{{ h.hora[11:16] if h.hora else "--" }}</div>
+            <div class="t">{{ h.temperatura_c }}°</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<p style="margin-top: 1.25rem;">
+    <a class="btn" href="{{ url_for('viagens.lista_viagens') }}">Histórico</a>
+    <a class="btn btn-primario" href="{{ url_for('viagens.nova_viagem') }}">Nova viagem</a>
+</p>
+{% endblock %}

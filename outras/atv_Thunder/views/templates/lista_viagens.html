@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Histórico — ClimaTrip{% endblock %}
+
+{% block content %}
+<h1>Histórico de viagens</h1>
+<p class="subtitulo">Consultas salvas no SQLite com o clima do momento</p>
+
+<section class="painel">
+    {% if viagens %}
+    <table class="tabela">
+        <thead>
+            <tr>
+                <th>Viajante</th>
+                <th>Destino</th>
+                <th>Data</th>
+                <th>Temp.</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for v in viagens %}
+            <tr>
+                <td>{{ v.viajante.nome }}</td>
+                <td>{{ v.destino }}{% if v.pais %}, {{ v.pais }}{% endif %}</td>
+                <td>{{ v.data_consulta }}</td>
+                <td>{{ v.temperatura_c }}°C</td>
+                <td><a href="{{ url_for('viagens.detalhe_viagem', viagem_id=v.id) }}">ver</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="vazio">Nenhuma viagem registrada.</p>
+    {% endif %}
+</section>
+{% endblock %}
