@@ -21,6 +21,7 @@
                 <th>Id</th>
                 <th>Nome</th>
                 <th>E-mail</th>
+                <th>Telefone</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                 <td>{{ aluno.id }}</td>
                 <td>{{ aluno.nome }}</td>
                 <td>{{ aluno.email }}</td>
+                <td>{{ aluno.telefone }}</td>
                 <td class="acoes">
                     <a href="{{ url_for('editar', aluno_id=aluno.id) }}">Editar</a>
                     <form method="POST" action="{{ url_for('excluir', aluno_id=aluno.id) }}"

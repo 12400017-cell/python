@@ -2,27 +2,36 @@
 AulaSQLalchemy — Flask + SQLAlchemy (simples, sem MVC)
 CRUD de alunos em um único arquivo.
 """
-
-import os
-
+#os(sistema operacional:
+#Serve para conectar o programa ao sistema operacional do pc,
+#com ele posso saber exatamente onde o arquivo python vai estar, evitando erro de arquivo não encontrado
+import os 
+#import redireect: serve para manda mandar o usuario para outra págin?
 from flask import Flask, redirect, render_template, request, url_for
+#import do banco de dados
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+
+#serve para descobrir o caminho obsoluto de onde o arquivo python esta sendo salvo no pc
 pasta_aula = os.path.abspath(os.path.dirname(__file__))
+#Define qual banco de dados a aplicação vai usar
+#os.path,join(): serve para criar um aquivo detntro da pasta_aula(var que dedura a localização do código)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
     pasta_aula, "alunos.db"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db = SQLAlchemy(app)
+#conecta o banco de dados com o app.py
+db = SQLAlchemy(app) 
 
 
-# --- MODEL (tabela no banco) ---
+# --- Criando a tabela alunos ---
 class Aluno(db.Model):
     __tablename__ = "alunos"
-
+    
+    #Criando as colunas do BD
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), nullable=False)
@@ -32,7 +41,7 @@ class Aluno(db.Model):
 
 
 with app.app_context():
-    db.create_all()
+    db.create_all() #criando as tabelas?? eu não ja as criei antes?
 
 
 # --- READ — listar ---
