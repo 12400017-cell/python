@@ -1,0 +1,43 @@
+{%  extends "layout.html"  %}
+
+{% block title %}Coleta #{{ coleta.id }} — RaspaUol{% endblock %}
+
+{% block content %}
+<section class="topo">
+    <h1>Coleta #{{ coleta.id }}</h1>
+    <p class="subtitulo">
+        {{ coleta.modo_busca }} · {{ coleta.total }} notícia(s) · {{ coleta.data_criacao }}
+    </p>
+    <div class="acoes">
+        <a class="btn" href="{{ url_for('site.historico') }}">Voltar</a>
+        <a class="btn" href="/api/historico/coletas/{{ coleta.id }}" target="_blank">JSON</a>
+    </div>
+</section>
+
+<section class="painel" style="margin-top: 1rem;">
+    {% if coleta.noticias %}
+    <div class="tabela-wrap">
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th>Seção</th>
+                    <th>Título</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for n in coleta.noticias %}
+                <tr>
+                    <td><span class="tag">{{ n.secao or "—" }}</span></td>
+                    <td>{{ n.titulo }}</td>
+                    <td><a href="{{ n.url }}" target="_blank" rel="noopener">Abrir</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="vazio">Coleta sem notícias.</p>
+    {% endif %}
+</section>
+{% endblock %}

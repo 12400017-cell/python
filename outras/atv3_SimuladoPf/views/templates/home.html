@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="hero">
+    <p class="selo">PROVA B · turma 3C2 · modelo Aula 19</p>
+    <h1 class="hero-brand">Raspa<em>Uol</em></h1>
+    <p class="lead">
+        Webscraping em <strong>economia.uol.com.br</strong>: captura links sobre
+        <strong>economia</strong> (economia, econômico, economico…), mostra no site e grava no SQLite se você quiser.
+    </p>
+</section>
+
+<section class="painel">
+    <h2 class="secao-titulo">Raspar a página fonte</h2>
+    <form method="post" action="{{ url_for('site.buscar') }}" class="form-busca">
+        <div class="campo-form">
+            <label for="modo">Modo</label>
+            <select id="modo" name="modo">
+                <option value="palavra" selected>Só com palavras-chave (economia)</option>
+                <option value="todos">Todos os links candidatos</option>
+            </select>
+        </div>
+        <div class="campo-check">
+            <label>
+                <input type="checkbox" name="salvar" value="1" checked>
+                Gravar no histórico SQLite
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primario">Raspar notícias</button>
+    </form>
+</section>
+
+<section class="painel" style="margin-top: 1.2rem;">
+    <h2 class="secao-titulo">Últimas coletas</h2>
+    {% if coletas %}
+    <ul class="lista">
+        {% for c in coletas %}
+        <li>
+            <a href="{{ url_for('site.detalhe_coleta', coleta_id=c.id) }}">
+                #{{ c.id }} · {{ c.modo_busca }} · {{ c.total }} notícia(s)
+            </a>
+            <span class="meta">{{ c.data_criacao }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    <p class="mais"><a href="{{ url_for('site.historico') }}">Ver histórico →</a></p>
+    {% else %}
+    <p class="vazio">Nenhuma coleta ainda. Raspe a página e marque “Gravar”.</p>
+    {% endif %} <!--Faltava o endif dentro das porcentagens-->
+</section>
+{% endblock %}

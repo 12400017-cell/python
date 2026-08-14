@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RaspaUol — economia{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+</head>
+<body>
+    <div class="campo" aria-hidden="true">
+        <span class="bola"></span>
+    </div>
+
+    <nav class="nav">
+        <a class="nav-brand" href="{{ url_for('site.home') }}">
+            Raspa<span>Uol</span>
+        </a>
+        <a href="{{ url_for('site.home') }}">Buscar</a>
+        <a href="{{ url_for('site.historico') }}">Histórico</a>
+        <a href="/api" target="_blank">API JSON</a>
+    </nav>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for categoria, mensagem in messages %}
+                    <div class="flash flash-{{ categoria }}">{{ mensagem }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

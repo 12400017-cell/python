@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}Resultado — RaspaUol{% endblock %}
+
+{% block content %}
+<section class="topo">
+    <h1>Notícias raspadas</h1>
+    <p class="subtitulo">
+        modo={{ dados.modo_busca }} · {{ dados.total }} encontrada(s)
+        {% if coleta_id %} · coleta #{{ coleta_id }}{% endif %}
+    </p>
+    <div class="acoes">
+        <a class="btn btn-primario" href="{{ url_for('site.home') }}">Nova busca</a>
+        {% if coleta_id %}
+        <a class="btn" href="{{ url_for('site.detalhe_coleta', coleta_id=coleta_id) }}">Ver no histórico</a>
+        {% endif %}
+        <a class="btn" href="/api/noticias?modo={{ dados.modo_busca }}" target="_blank">JSON ao vivo</a>
+    </div>
+</section>
+
+<section class="painel" style="margin-top: 1rem;">
+    {% if dados.noticias %}
+    <div class="tabela-wrap">
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th>Seção</th>
+                    <th>Título</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for n in dados.noticias %}
+                <tr>
+                    <td><span class="tag">{{ n.secao or "—" }}</span></td>
+                    <td>{{ n.titulo }}</td>
+                    <td><a href="{{ n.url }}" target="_blank" rel="noopener">Abrir</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="vazio">Nenhuma notícia encontrada com esse filtro.</p>
+    {% endif %}
+    <p class="fonte">Fonte: <a href="{{ dados.fonte }}" target="_blank">{{ dados.fonte }}</a></p>
+</section>
+{% endblock %}
