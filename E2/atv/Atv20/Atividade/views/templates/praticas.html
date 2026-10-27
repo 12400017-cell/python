@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block title %}Práticas — TorreJWT{% endblock %}
+
+{% block content %}
+<section class="topo-pagina">
+    <h1>
+        <svg class="titulo-aviao" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 11V8a5 5 0 0 1 10 0v3" fill="none" stroke="currentColor" stroke-width="2"/>
+            <rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor"/>
+        </svg>
+        Práticas da documentação
+    </h1>
+    <p class="subtitulo">
+        Mapa 1:1 com
+        <a href="https://flask-jwt-extended.readthedocs.io/en/stable/" target="_blank" rel="noopener">Flask-JWT-Extended</a>,
+        na estrutura da Aula 19.
+    </p>
+</section>
+
+<section class="painel">
+    <div class="tabela-wrap">
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th>Docs</th>
+                    <th>Onde nesta aula</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Basic Usage</td>
+                    <td><code>POST /api/auth/login</code> + <code>@jwt_required()</code> no radar</td>
+                </tr>
+                <tr>
+                    <td>Automatic User Loading</td>
+                    <td><code>user_identity_loader</code> / <code>user_lookup_loader</code> → <code>current_user</code></td>
+                </tr>
+                <tr>
+                    <td>Additional Data in JWTs</td>
+                    <td>claim <code>papel</code> + sala <code>/api/torre/admin</code></td>
+                </tr>
+                <tr>
+                    <td>Partially protecting routes</td>
+                    <td><code>@jwt_required(optional=True)</code> no saguão</td>
+                </tr>
+                <tr>
+                    <td>JWT Locations (Headers)</td>
+                    <td><code>Authorization: Bearer …</code> (<code>JWT_TOKEN_LOCATION</code>)</td>
+                </tr>
+                <tr>
+                    <td>Explicit Refreshing</td>
+                    <td><code>POST /api/auth/refresh</code> com refresh token</td>
+                </tr>
+                <tr>
+                    <td>Token Freshness Pattern</td>
+                    <td>login fresh; refresh não; <code>/api/auth/senha</code> exige fresh</td>
+                </tr>
+                <tr>
+                    <td>JWT Revoking / Blocklist (Database)</td>
+                    <td><code>TokenRevogado</code> no <code>blocklist.db</code></td>
+                </tr>
+                <tr>
+                    <td>Configuration Options</td>
+                    <td><code>JWT_SECRET_KEY</code>, expiração 15 min / 1 dia</td>
+                </tr>
+                <tr>
+                    <td>Changing Default Behaviors</td>
+                    <td>loaders de erro em português em <code>services/jwt_config.py</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="fonte">Dois SQLite, como na Aula 19: <code>principal.db</code> (usuários) e <code>blocklist.db</code> (jti revogados).</p>
+</section>
+{% endblock %}

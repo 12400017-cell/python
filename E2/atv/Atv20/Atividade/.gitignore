@@ -1,0 +1,4 @@
+principal.db
+blocklist.db
+__pycache__/
+*.pyc

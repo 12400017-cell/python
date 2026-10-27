@@ -1,0 +1,12 @@
+Documentação oficial:
+https://flask.palletsprojects.com/en/stable/
+
+
+Na prática, o Flask funciona como uma ponte entre o navegador do usuário e o código Python no servidor. Com ele, é possível:
+
+Criar rotas (URLs) que respondem a requisições HTTP
+Retornar páginas HTML, dados em JSON ou outros formatos
+Integrar com bancos de dados
+Construir APIs REST de forma eficiente
+
+FRAMEWORK SIMPLES!

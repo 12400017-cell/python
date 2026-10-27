@@ -1,0 +1,27 @@
+================================================================================
+AULA 20 — TORREJWT: FLASK-JWT-EXTENDED (baseada na Aula 19)
+================================================================================
+
+  Aula 19  →  FlightAware + ColetaVoo / VooInfo + site RaspaVoo
+  Aula 20  →  JWT + Usuario / TokenRevogado + site TorreJWT
+
+  Docs: https://flask-jwt-extended.readthedocs.io/en/stable/
+
+  Front (render_template + JS):
+    GET  /              → home com login e playground
+    GET  /praticas      → mapa da documentação
+
+  API:
+    POST   /api/auth/login
+    POST   /api/auth/refresh
+    DELETE /api/auth/logout
+    GET    /api/auth/eu
+    POST   /api/auth/senha          (fresh)
+    GET    /api/torre/saguao        (optional)
+    GET    /api/torre/radar
+    GET    /api/torre/admin         (claim papel)
+
+  Header: Authorization: Bearer <token>
+  Demo: admin/admin123  piloto/piloto123  visitante/visitante123
+
+================================================================================

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TorreJWT — crachá da torre de controle{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="ceu" aria-hidden="true">
+        <span class="radar-anel r1"></span>
+        <span class="radar-anel r2"></span>
+        <span class="radar-sweep"></span>
+    </div>
+
+    <nav class="nav">
+        <a class="nav-brand" href="{{ url_for('site.home') }}">
+            <svg class="nav-cadeado" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 11V8a5 5 0 0 1 10 0v3" fill="none" stroke="currentColor" stroke-width="2"/>
+                <rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor"/>
+                <circle cx="12" cy="16" r="1.6" fill="#071525"/>
+            </svg>
+            Torre<span>JWT</span>
+        </a>
+        <a href="{{ url_for('site.home') }}">Torre</a>
+        <a href="{{ url_for('site.praticas') }}">Práticas</a>
+        <a href="/api" target="_blank">API JSON</a>
+    </nav>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for categoria, mensagem in messages %}
+                    <div class="flash flash-{{ categoria }}">{{ mensagem }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-texto">
+        <p class="hero-selo">
+            <svg class="selo-cadeado" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 11V8a5 5 0 0 1 10 0v3" fill="none" stroke="currentColor" stroke-width="2"/>
+                <rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor"/>
+            </svg>
+            Aula 20 · Flask-JWT-Extended
+        </p>
+        <h1 class="hero-brand">Torre<em>JWT</em></h1>
+        <p class="hero-lead">
+            Na Aula 19 o radar era público. Agora a torre só abre com
+            <strong>crachá JWT</strong>: access curto, refresh longo, claims de papel
+            e blocklist no segundo SQLite.
+        </p>
+    </div>
+    <div class="hero-radar" aria-hidden="true">
+        <svg viewBox="0 0 220 220">
+            <circle cx="110" cy="110" r="96" fill="none" stroke="currentColor" opacity="0.2"/>
+            <circle cx="110" cy="110" r="64" fill="none" stroke="currentColor" opacity="0.28"/>
+            <circle cx="110" cy="110" r="32" fill="none" stroke="currentColor" opacity="0.4"/>
+            <line x1="110" y1="14" x2="110" y2="206" stroke="currentColor" opacity="0.18"/>
+            <line x1="14" y1="110" x2="206" y2="110" stroke="currentColor" opacity="0.18"/>
+            <path class="sweep-path" d="M110 110 L110 18 A92 92 0 0 1 190 110 Z" fill="currentColor" opacity="0.18"/>
+            <circle cx="110" cy="110" r="6" fill="#f7c948"/>
+            <circle class="blip" cx="158" cy="72" r="4" fill="#5eead4"/>
+            <circle class="blip b2" cx="68" cy="150" r="3.5" fill="#ffe08a"/>
+        </svg>
+    </div>
+</section>
+
+<section class="painel busca-painel">
+    <h2 class="secao-titulo">Pegue o crachá</h2>
+    <p class="subtitulo">O JS chama <code>POST /api/auth/login</code> e guarda os tokens no <code>sessionStorage</code>.</p>
+
+    <div class="credenciais">
+        {% for username, nome, senha, papel in usuarios %}
+        <button type="button" class="chip" data-user="{{ username }}" data-pass="{{ senha }}">
+            <strong>{{ username }}</strong>
+            <span>{{ papel }} · {{ senha }}</span>
+        </button>
+        {% endfor %}
+    </div>
+
+    <form id="form-login" class="form-busca" autocomplete="off">
+        <div class="campo">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" value="piloto" required>
+        </div>
+        <div class="campo">
+            <label for="senha">Senha</label>
+            <input id="senha" name="senha" type="password" value="piloto123" required>
+        </div>
+        <button type="submit" class="btn btn-primario">Emitir JWT</button>
+    </form>
+    <div class="hero-actions" style="margin-top: 0.85rem;">
+        <button type="button" class="btn" id="btn-saguao-livre">Saguão sem crachá</button>
+    </div>
+
+    <div id="sessao" class="sessao oculto">
+        <p class="sessao-nome"></p>
+        <p class="sessao-tokens"></p>
+        <div class="hero-actions">
+            <button type="button" class="btn" data-acao="eu">Quem sou eu</button>
+            <button type="button" class="btn" data-acao="saguao">Saguão (opcional)</button>
+            <button type="button" class="btn" data-acao="radar">Radar</button>
+            <button type="button" class="btn" data-acao="admin">Sala admin</button>
+            <button type="button" class="btn" data-acao="refresh">Refresh</button>
+            <button type="button" class="btn" data-acao="senha">Trocar senha (fresh)</button>
+            <button type="button" class="btn" data-acao="logout">Logout</button>
+        </div>
+    </div>
+</section>
+
+<section class="painel" style="margin-top: 1.25rem;">
+    <h2 class="secao-titulo">Resposta da API</h2>
+    <p id="status-http" class="meta">Ainda sem request. Faça login ou clique em Saguão (funciona sem token).</p>
+    <pre id="saida" class="saida">{ }</pre>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/torre.js') }}"></script>
+{% endblock %}

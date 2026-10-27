@@ -1,0 +1,65 @@
+================================================================================
+ATIVIDADE — AULA 20  ·  TORREJWT INSEGURA
+================================================================================
+
+A torre "funciona", mas a segurança está furada de ponta a ponta.
+Sua missão: arrumar TODA a camada de segurança SEM desmontar o MVC.
+
+Arquitetura (não mude as pastas):
+
+  models/        Usuario, TokenRevogado, ModeloBase
+  views/         templates + static  (HTML/CSS/JS)
+  controllers/   site, auth_api, torre_api
+  services/      auth, jwt_config, radar
+  app.py         fábrica Flask + config JWT
+
+Docs: https://flask-jwt-extended.readthedocs.io/en/stable/
+
+Como rodar (a Aula 20 original usa a porta 5000 — pare ela antes):
+
+  cd flask/Aula20seguranca/Atividade
+  python app.py
+
+Abra http://127.0.0.1:5000 e PROVE cada furo antes de corrigir.
+
+--------------------------------------------------------------------------------
+O QUE VOCÊ DEVE CONSEGUIR FAZER HOJE (e depois NÃO deve mais)
+--------------------------------------------------------------------------------
+
+  1. GET /api/torre/radar sem token nenhum → 200 (radar público)
+  2. GET /api/torre/admin sem token → lista todos os usuários COM senha
+  3. POST /api/auth/login só com {"username":"admin"} (senha errada/vazia) → entra
+  4. POST /api/auth/registrar com "papel":"admin" → vira admin
+  5. Logout e o mesmo token ainda passa no radar
+  6. Token na query string (?jwt=...) — vaza em log/histórico
+
+Procure os comentários  TODO(segurança)  no código.
+
+--------------------------------------------------------------------------------
+CHECKLIST (tudo isso precisa ficar certo)
+--------------------------------------------------------------------------------
+
+[ ] Model: senha com HASH (werkzeug). Nunca texto puro.
+[ ] para_dict NÃO devolve senha.
+[ ] Cadastro sempre papel=visitante (cliente não se promove).
+[ ] autenticar() confere a senha.
+[ ] JWT_SECRET_KEY forte (não use "123").
+[ ] Access curto (~15 min) e refresh ~1 dia — não 365 dias.
+[ ] JWT_TOKEN_LOCATION = ["headers"]  (Authorization: Bearer)
+[ ] @jwt_required() em /eu, /radar, /admin, /blocklist
+[ ] @jwt_required(refresh=True) em /refresh
+[ ] @jwt_required(verify_type=False) em /logout
+[ ] @jwt_required(fresh=True) em /senha
+[ ] @jwt_required(optional=True) no saguão
+[ ] additional_claims_loader coloca papel (e nome) no token
+[ ] /admin recusa quem não tem papel admin (403)
+[ ] Logout grava o jti em TokenRevogado (blocklist)
+[ ] token_in_blocklist_loader consulta a blocklist
+[ ] Refresh gera access NÃO fresh
+[ ] Troca de senha confere a senha atual
+
+Referência (não copie cego — entenda): pasta pai  ../  (Aula 20 resolvida).
+
+Entrega: o projeto Atividade rodando, checklist marcado, e um parágrafo:
+"antes dava para ... ; agora o Flask responde ..."
+================================================================================
